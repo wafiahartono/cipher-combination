@@ -1,11 +1,13 @@
 Program kombinasi cipher mata kuliah Information Security and Assurance (1604B045) Teknik Informatik Universitas Surabaya
 
-Anggota kelompok:
-CHRISTOPHER ANGELO LOMBAN 160419058
-HERLIANSYAH BAGUS PRIAMBODO 160419082
-PANDU SANIKA SATYA WADA NURRAHMAN 160419096
-WAFI AZMI HARTONO 160419098
-STARIF PAHLAURELF GIRSANG 160419149
+#### Anggota kelompok:
 
-Cipher yang digunakan:
+- Christopher Angelo Lomban (160419058)
+- Herliansyah Bagus Priambodo (160419082)
+- Pandu Sanika Satya Wada Nurrahman (160419096)
+- Wafi Azmi Hartono (160419098)
+- Starif Pahlaurelf Girsang (160419149)
+
+#### Cipher yang digunakan:
+
 Vigenere, additive, transposition
