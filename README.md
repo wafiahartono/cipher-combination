@@ -11,3 +11,9 @@ Program kombinasi cipher mata kuliah Information Security and Assurance (1604B04
 #### Cipher yang digunakan:
 
 Vigenere, additive, transposition
+
+#### Credits
+
+- Vigenere cipher: [programmingalgorithms.com](https://www.programmingalgorithms.com/algorithm/vigenere-cipher)
+
+- Transposition cipher [programmingalgorithms.com](https://www.programmingalgorithms.com/algorithm/transposition-cipher)
