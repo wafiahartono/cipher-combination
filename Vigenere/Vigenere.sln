@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vigenere", "Vigenere\Vigenere.csproj", "{9B55A02A-24B0-4566-8AD7-126B5A97BED5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B55A02A-24B0-4566-8AD7-126B5A97BED5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B55A02A-24B0-4566-8AD7-126B5A97BED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B55A02A-24B0-4566-8AD7-126B5A97BED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B55A02A-24B0-4566-8AD7-126B5A97BED5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3811473E-C297-445C-AC9B-8ADA896FCAE7}
+	EndGlobalSection
+EndGlobal
