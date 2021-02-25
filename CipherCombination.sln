@@ -1,8 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranspositionCipher", "TranspositionCipher\TranspositionCipher\TranspositionCipher.csproj", "{7807D0EA-8A2B-4941-8423-6C77B75F5F0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vigenere", "Vigenere\Vigenere\Vigenere.csproj", "{CAEC0445-85A2-412F-A1B5-97C51D853529}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7807D0EA-8A2B-4941-8423-6C77B75F5F0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7807D0EA-8A2B-4941-8423-6C77B75F5F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7807D0EA-8A2B-4941-8423-6C77B75F5F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7807D0EA-8A2B-4941-8423-6C77B75F5F0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAEC0445-85A2-412F-A1B5-97C51D853529}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAEC0445-85A2-412F-A1B5-97C51D853529}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAEC0445-85A2-412F-A1B5-97C51D853529}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAEC0445-85A2-412F-A1B5-97C51D853529}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
