@@ -2,7 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranspositionCipher", "TranspositionCipher\TranspositionCipher\TranspositionCipher.csproj", "{7807D0EA-8A2B-4941-8423-6C77B75F5F0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vigenere", "Vigenere\Vigenere\Vigenere.csproj", "{CAEC0445-85A2-412F-A1B5-97C51D853529}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{332E886F-1F42-4F31-A868-C74D23A626B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdditiveCipher", "AdditiveCipher\AdditiveCipher.csproj", "{F2AF17B1-2B3A-4B2C-9B40-4A56005CD73B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VigenereCipher", "VigenereCipher\VigenereCipher\VigenereCipher.csproj", "{E4801781-19F9-4AD1-850F-DC45D5C39C3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +18,17 @@ Global
 		{7807D0EA-8A2B-4941-8423-6C77B75F5F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7807D0EA-8A2B-4941-8423-6C77B75F5F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7807D0EA-8A2B-4941-8423-6C77B75F5F0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CAEC0445-85A2-412F-A1B5-97C51D853529}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CAEC0445-85A2-412F-A1B5-97C51D853529}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CAEC0445-85A2-412F-A1B5-97C51D853529}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CAEC0445-85A2-412F-A1B5-97C51D853529}.Release|Any CPU.Build.0 = Release|Any CPU
+		{332E886F-1F42-4F31-A868-C74D23A626B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{332E886F-1F42-4F31-A868-C74D23A626B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{332E886F-1F42-4F31-A868-C74D23A626B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{332E886F-1F42-4F31-A868-C74D23A626B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2AF17B1-2B3A-4B2C-9B40-4A56005CD73B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2AF17B1-2B3A-4B2C-9B40-4A56005CD73B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2AF17B1-2B3A-4B2C-9B40-4A56005CD73B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2AF17B1-2B3A-4B2C-9B40-4A56005CD73B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4801781-19F9-4AD1-850F-DC45D5C39C3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4801781-19F9-4AD1-850F-DC45D5C39C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4801781-19F9-4AD1-850F-DC45D5C39C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4801781-19F9-4AD1-850F-DC45D5C39C3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TranspositionCipher
 {
-    public static class TranspositionCipher
+    public static class Cipher
     {
         private static int[] GetShiftIndexes(string key)
         {

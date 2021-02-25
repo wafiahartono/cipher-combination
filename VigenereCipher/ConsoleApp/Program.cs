@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vigenere
+namespace VigenereCipher
 {
     class Program
     {
@@ -12,8 +12,8 @@ namespace Vigenere
 			Console.Write("Enter key : ");
 			string key = Console.ReadLine();
 
-			string cipherText = VigenereCipher.Encrypt(text, key);
-			string plainText = VigenereCipher.Decrypt(cipherText, key);
+			string cipherText = Cipher.Encrypt(text, key);
+			string plainText = Cipher.Decrypt(cipherText, key);
 
 			Console.WriteLine("==========RESULT==========");
 			Console.WriteLine("Encrypt (Cipher text) : " + cipherText);

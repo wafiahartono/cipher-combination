@@ -3,11 +3,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Vigenere</RootNamespace>
+    <RootNamespace>VigenereCipher</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Vigenere\Vigenere.csproj" />
+    <ProjectReference Include="..\VigenereCipher\VigenereCipher.csproj" />
   </ItemGroup>
 
 </Project>

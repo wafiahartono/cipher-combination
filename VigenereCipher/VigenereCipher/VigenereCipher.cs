@@ -1,13 +1,13 @@
-﻿namespace Vigenere
+﻿namespace VigenereCipher
 {
-    public static class VigenereCipher
+    public static class Cipher
     {
         private static int Mod(int a, int b)
         {
             return (a % b + b) % b;
         }
 
-        private static string Cipher(string input, string key, bool encipher)
+        private static string Process(string input, string key, bool encipher)
         {
             for (int i = 0; i < key.Length; ++i)
                 if (!char.IsLetter(key[i]))
@@ -40,12 +40,12 @@
 
         public static string Encrypt(string input, string key)
         {
-            return Cipher(input, key, true);
+            return Process(input, key, true);
         }
 
         public static string Decrypt(string input, string key)
         {
-            return Cipher(input, key, false);
+            return Process(input, key, false);
         }
     }
 }

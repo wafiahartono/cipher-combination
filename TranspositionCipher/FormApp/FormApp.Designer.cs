@@ -1,6 +1,6 @@
 ﻿namespace TranspositionCipher
 {
-    partial class Form1
+    partial class FormApp
     {
         /// <summary>
         /// Required designer variable.
