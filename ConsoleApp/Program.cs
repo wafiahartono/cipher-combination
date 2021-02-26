@@ -2,9 +2,9 @@
 
 namespace ConsoleApp
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             const string message = @"Cipher Combination
 
@@ -15,28 +15,34 @@ Anggota kelompok:
 4. Wafi Azmi Hartono (160419098)
 5. Starif Pahlaurelf Girsang (160419149)
 
-Cipher yang digunakan: vigenere, additive, transposition
+Cipher yang digunakan: vigenere > additive > transposition
 ";
             Console.WriteLine(message);
 
-            Console.Write("Plain text: ");
+            Console.Write("plain text: ");
             var plainText = Console.ReadLine();
-            Console.Write("Key: ");
-            var key = Console.ReadLine();
-
+            Console.Write("vigenere cipher Key: ");
+            var key0 = Console.ReadLine();
+            Console.Write("additive cipher Key: ");
+            var key1 = int.Parse(Console.ReadLine() ?? "0");
+            Console.Write("transposition cipher Key: ");
+            var key2 = Console.ReadLine();
             Console.WriteLine();
 
-            var vigenereCipherText = VigenereCipher.Cipher.Encrypt(plainText, key);
-            Console.WriteLine($"1. Cipher text of vigenere(plaintext): {vigenereCipherText}");
+            var cipherText0 = VigenereCipher.Cipher.Encrypt(plainText, key0);
+            Console.WriteLine($"stage 1 cipher text: {cipherText0}");
+            var cipherText1 = AdditiveCipher.Cipher.Encrypt(cipherText0, key1);
+            Console.WriteLine($"stage 2 cipher text: {cipherText1}");
+            var cipherText2 = TranspositionCipher.Cipher.Encipher(cipherText1, key2, '$');
+            Console.WriteLine($"stage 3 cipher text: {cipherText2}");
+            Console.WriteLine();
 
-            var transpositionCipherText = TranspositionCipher.Cipher.Encipher(vigenereCipherText, key, '$');
-            Console.WriteLine($"2. Cipher text of transposition(vigenere(plaintext)): {transpositionCipherText}");
-
-            var transpositionPlainText = TranspositionCipher.Cipher.Decipher(transpositionCipherText, key);
-            Console.WriteLine($"2^-1 . Plain text of transposition(vigenere(plaintext)): {transpositionPlainText}");
-
-            var vigenerePlainText = VigenereCipher.Cipher.Decrypt(transpositionPlainText, key);
-            Console.WriteLine($"1^-1 . Plain text of vigenere(plaintext): {vigenerePlainText}");
+            var plainText2 = TranspositionCipher.Cipher.Decipher(cipherText2, key2);
+            Console.WriteLine($"stage 3^-1 plain text: {plainText2}");
+            var plainText1 = AdditiveCipher.Cipher.Decrypt(plainText2, key1);
+            Console.WriteLine($"stage 2^-1 plain text: {plainText2}");
+            var plainText0 = VigenereCipher.Cipher.Decrypt(plainText1, key0);
+            Console.WriteLine($"stage 1^-1 plain text: {plainText0}");
         }
     }
 }
