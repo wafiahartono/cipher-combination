@@ -1,16 +1,25 @@
-﻿namespace VigenereCipher
+﻿using Common;
+
+namespace VigenereCipher
 {
-    public static class Cipher
+    public class VigenereCipher : StringCipher
     {
+        private readonly string _key;
+
+        public VigenereCipher(string key)
+        {
+            _key = key;
+        }
+
         private static int Mod(int a, int b)
         {
             return (a % b + b) % b;
         }
 
-        private static string Process(string input, string key, bool encipher)
+        private string Process(string input, bool encipher)
         {
-            for (int i = 0; i < key.Length; ++i)
-                if (!char.IsLetter(key[i]))
+            for (int i = 0; i < _key.Length; ++i)
+                if (!char.IsLetter(_key[i]))
                     return null; // Error
 
             string output = string.Empty;
@@ -22,8 +31,8 @@
                 {
                     bool cIsUpper = char.IsUpper(input[i]);
                     char offset = cIsUpper ? 'A' : 'a';
-                    int keyIndex = (i - nonAlphaCharCount) % key.Length;
-                    int k = (cIsUpper ? char.ToUpper(key[keyIndex]) : char.ToLower(key[keyIndex])) - offset;
+                    int keyIndex = (i - nonAlphaCharCount) % _key.Length;
+                    int k = (cIsUpper ? char.ToUpper(_key[keyIndex]) : char.ToLower(_key[keyIndex])) - offset;
                     k = encipher ? k : -k;
                     char ch = (char) ((Mod(((input[i] + k) - offset), 26)) + offset);
                     output += ch;
@@ -38,14 +47,7 @@
             return output;
         }
 
-        public static string Encrypt(string input, string key)
-        {
-            return Process(input, key, true);
-        }
-
-        public static string Decrypt(string input, string key)
-        {
-            return Process(input, key, false);
-        }
+        public override string Encrypt(string plainText) => Process(plainText, true);
+        public override string Decrypt(string cipherText) => Process(cipherText, false);
     }
 }
