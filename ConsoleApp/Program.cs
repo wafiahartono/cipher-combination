@@ -13,7 +13,8 @@ Anggota kelompok:
 2. Herliansyah Bagus Priambodo (160419082)
 3. Pandu Sanika Satya Wada Nurrahman (160419096)
 4. Wafi Azmi Hartono (160419098)
-5. Starif Pahlaurelf Girsang (160419149)
+5. David Pratama (160419103)
+6. Starif Pahlaurelf Girsang (160419149)
 
 Cipher yang digunakan: vigenere > additive > transposition
 ";

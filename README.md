@@ -6,6 +6,7 @@ Program kombinasi cipher mata kuliah Information Security and Assurance (1604B04
 - Herliansyah Bagus Priambodo (160419082)
 - Pandu Sanika Satya Wada Nurrahman (160419096)
 - Wafi Azmi Hartono (160419098)
+- David Pratama (160419103)
 - Starif Pahlaurelf Girsang (160419149)
 
 #### Cipher yang digunakan:
