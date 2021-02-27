@@ -4,12 +4,18 @@ using Common;
 
 namespace ConsoleApp
 {
-    internal static class Program
+    internal class Program
     {
+        private bool _verbose;
+
         private static void Main()
         {
-            PrintWithColor(
-                @"
+            new Program().Run();
+        }
+
+        private void Run()
+        {
+            PrintWithColor(@"
    ___ _      _               ___           _    _           _   _          
   / __(_)_ __| |_  ___ _ _   / __|___ _ __ | |__(_)_ _  __ _| |_(_)___ _ _  
  | (__| | '_ \ ' \/ -_) '_| | (__/ _ \ '  \| '_ \ | ' \/ _` |  _| / _ \ ' \ 
@@ -29,20 +35,21 @@ Anggota kelompok:
             );
 
             ConsoleKeyInfo choice;
-            var invalidKey = false;
+            var printMenu = true;
             do
             {
-                if (!invalidKey)
+                if (printMenu)
                     PrintWithColor(@"
 available menu:
 m > run main program
 i > run individual test
 t > run test
+v > switch verbose flag
 q > quit",
                         ConsoleColor.Blue
                     );
                 choice = ReadKeyInput("  > ");
-                invalidKey = false;
+                printMenu = true;
                 Console.Write(" : ");
                 switch (choice.Key)
                 {
@@ -55,11 +62,16 @@ q > quit",
                     case ConsoleKey.T:
                         RunTest();
                         break;
+                    case ConsoleKey.V:
+                        _verbose = !_verbose;
+                        printMenu = false;
+                        PrintWithColor($"verbose flag is now {(_verbose ? "on" : "off")}", ConsoleColor.Yellow);
+                        break;
                     case ConsoleKey.Q:
                         PrintWithColor("quitting...", ConsoleColor.Yellow);
                         break;
                     default:
-                        invalidKey = true;
+                        printMenu = false;
                         PrintWithColor($"invalid menu: {choice.KeyChar}", ConsoleColor.Red);
                         break;
                 }
@@ -99,7 +111,7 @@ q > quit",
             return key;
         }
 
-        private static void RunMainProgram()
+        private void RunMainProgram()
         {
             PrintWithColor("running main program...\n", ConsoleColor.Yellow);
             var plaintext = ReadStringInput("plaintext: ");
@@ -117,7 +129,14 @@ q > quit",
             PrintWithColor("\nencryption stage", ConsoleColor.Yellow);
             for (var i = 0; i < ciphers.Length; i++)
             {
-                text = ciphers[i].Encrypt(text);
+                var ciphertext = ciphers[i].Encrypt(text);
+                if (_verbose)
+                {
+                    Console.WriteLine();
+                    DebugCipher.PrintStringDiff(text, ciphertext);
+                }
+
+                text = ciphertext;
                 PrintKeyValuePair(
                     $"\n[stage {i + 1}] {ciphers[i].GetType().Name} ({text.Length})", '\n' + text,
                     ConsoleColor.Cyan
@@ -127,7 +146,14 @@ q > quit",
             PrintWithColor("\ndecryption stage", ConsoleColor.Yellow);
             for (var i = ciphers.Length - 1; i > -1; i--)
             {
-                text = ciphers[i].Decrypt(text);
+                var iPlaintext = ciphers[i].Decrypt(text);
+                if (_verbose)
+                {
+                    Console.WriteLine();
+                    DebugCipher.PrintStringDiff(text, iPlaintext);
+                }
+
+                text = iPlaintext;
                 PrintKeyValuePair(
                     $"\n[stage {i + 1}^-1] {ciphers[i].GetType().Name} ({text.Length})", '\n' + text,
                     ConsoleColor.Cyan
@@ -137,7 +163,7 @@ q > quit",
             PrintWithColor("\n> main program finished", ConsoleColor.Red);
         }
 
-        private static void RunIndividualTest()
+        private void RunIndividualTest()
         {
             PrintWithColor("running individual test...", ConsoleColor.Yellow);
 
@@ -177,7 +203,7 @@ q > quit",
             PrintWithColor("\n> individual test finished", ConsoleColor.Red);
         }
 
-        private static void RunEncryptionTest()
+        private void RunEncryptionTest()
         {
             PrintWithColor("running encryption test...\n", ConsoleColor.Yellow);
             var plaintext = ReadStringInput("plaintext: ");
@@ -185,10 +211,16 @@ q > quit",
             var cipher = GetCpiher(key);
             if (cipher == null) return;
             var ciphertext = cipher.Encrypt(plaintext);
+            if (_verbose)
+            {
+                DebugCipher.PrintStringDiff(plaintext, ciphertext);
+                Console.WriteLine();
+            }
+
             PrintKeyValuePair($"ciphertext ({ciphertext.Length})", '\n' + ciphertext, ConsoleColor.Cyan);
         }
 
-        private static void RunDecryptionTest()
+        private void RunDecryptionTest()
         {
             PrintWithColor("running decryption test...\n", ConsoleColor.Yellow);
             var ciphertext = ReadStringInput("ciphertext: ");
@@ -196,7 +228,13 @@ q > quit",
             var cipher = GetCpiher(key);
             if (cipher == null) return;
             var plaintext = cipher.Decrypt(ciphertext);
-            PrintKeyValuePair($"ciphertext ({plaintext.Length})", '\n' + plaintext, ConsoleColor.Cyan);
+            if (_verbose)
+            {
+                DebugCipher.PrintStringDiff(ciphertext, plaintext);
+                Console.WriteLine();
+            }
+
+            PrintKeyValuePair($"plaintext ({plaintext.Length})", '\n' + plaintext, ConsoleColor.Cyan);
         }
 
         private static StringCipher GetCpiher(string key)
@@ -253,7 +291,7 @@ q > quit",
             return null;
         }
 
-        private static void RunTest()
+        private void RunTest()
         {
             PrintWithColor("running test...\n", ConsoleColor.Yellow);
             var plaintext = string.Join(null, from i in Enumerable.Range(32, 95) select (char) i);
@@ -272,10 +310,20 @@ q > quit",
             foreach (var cipher in ciphers)
             {
                 PrintWithColor($"\n | {cipher.GetType().FullName}", ConsoleColor.Green);
-                PrintWithColor("\nencrypting...", ConsoleColor.Yellow);
                 var ciphertext = cipher.Encrypt(plaintext);
-                PrintWithColor("\ndecrypting...", ConsoleColor.Yellow);
+                if (_verbose)
+                {
+                    PrintWithColor("\nencrypting...\n", ConsoleColor.Yellow);
+                    DebugCipher.PrintStringDiff(plaintext, ciphertext);
+                }
+
                 var ctplaintext = cipher.Decrypt(ciphertext);
+                if (_verbose)
+                {
+                    PrintWithColor("\ndecrypting...\n", ConsoleColor.Yellow);
+                    DebugCipher.PrintStringDiff(ciphertext, ctplaintext);
+                }
+
                 PrintKeyValuePair($"\n-/ encrypted ({ciphertext.Length})", '\n' + ciphertext, ConsoleColor.Cyan);
                 PrintKeyValuePair($"\n-/ decrypted ({ctplaintext.Length})", '\n' + ctplaintext, ConsoleColor.Cyan);
                 PrintKeyValuePair(
