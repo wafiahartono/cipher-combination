@@ -25,31 +25,28 @@ Anggota kelompok:
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine(@"
-Available menu:
-M > Run main program
-T > Run test
-Q > Quit
+available menu:
+m > run main program
+t > run test
+q > quit
 ");
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 choice = Console.ReadKey();
                 Console.ResetColor();
-                Console.WriteLine();
+                Console.Write("\n\n");
                 switch (choice.Key)
                 {
                     case ConsoleKey.M:
-                        Console.SetCursorPosition(0, Console.GetCursorPosition().Top - 1);
                         RunMainProgram();
                         break;
                     case ConsoleKey.T:
-                        Console.SetCursorPosition(0, Console.GetCursorPosition().Top - 1);
                         RunTest();
                         break;
                     case ConsoleKey.Q:
                         break;
                     default:
-                        Console.SetCursorPosition(0, Console.GetCursorPosition().Top - 1);
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Invalid menu: {choice.KeyChar}");
+                        Console.WriteLine($"invalid menu: {choice.KeyChar}");
                         Console.ResetColor();
                         break;
                 }
@@ -59,7 +56,7 @@ Q > Quit
         private static void RunMainProgram()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("[Running main program...]\n");
+            Console.WriteLine("[running main program...]\n");
             Console.ResetColor();
 
             Console.Write("plaintext: ");
@@ -67,74 +64,59 @@ Q > Quit
             var plaintext = Console.ReadLine();
             Console.ResetColor();
 
-            Console.Write("vigenere cipher Key: ");
+            Console.Write("string cipher Key: ");
             Console.ForegroundColor = ConsoleColor.Magenta;
             var key0 = Console.ReadLine();
             Console.ResetColor();
 
-            Console.Write("additive cipher Key: ");
+            Console.Write("int cipher Key: ");
             Console.ForegroundColor = ConsoleColor.Magenta;
             var key1 = int.Parse(Console.ReadLine() ?? "0");
             Console.ResetColor();
 
-            Console.Write("transposition cipher Key: ");
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            var key2 = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\n[encryption stage]\n");
             Console.ResetColor();
 
-            Console.WriteLine();
+            var ciphers = new StringCipher[]
+            {
+                new VigenereCipher.VigenereCipherAscii(key0),
+                new AdditiveCipher.AdditiveCipher(key1),
+                new TranspositionCipher.TranspositionCipherAscii(key0)
+            };
 
-            var cipher0 = new VigenereCipher.VigenereCipherAscii(key0);
-            var cipher1 = new AdditiveCipher.AdditiveCipher(key1);
-            var cipher2 = new TranspositionCipher.TranspositionCipherAscii(key2);
-
-            var ciphertext0 = cipher0.Encrypt(plaintext);
-            Console.Write("stage 1 ciphertext: ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(ciphertext0);
-            Console.ResetColor();
-
-            var ciphertext1 = cipher1.Encrypt(ciphertext0);
-            Console.Write("stage 2 ciphertext: ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(ciphertext1);
-            Console.ResetColor();
-
-            var ciphertext2 = cipher2.Encrypt(ciphertext1);
-            Console.Write("stage 3 ciphertext: ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(ciphertext2);
-            Console.ResetColor();
-
-            Console.WriteLine();
-
-            var plaintext2 = cipher2.Decrypt(ciphertext2);
-            Console.Write("stage 3^-1 plaintext: ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(plaintext2);
-            Console.ResetColor();
-
-            var plaintext1 = cipher1.Decrypt(plaintext2);
-            Console.Write("stage 2^-1 plaintext: ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(plaintext1);
-            Console.ResetColor();
-
-            var plaintext0 = cipher0.Decrypt(plaintext1);
-            Console.Write($"stage 1^-1 plaintext: ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(plaintext0);
-            Console.ResetColor();
+            var textBefore = plaintext;
+            for (var i = 0; i < ciphers.Length; i++)
+            {
+                textBefore = ciphers[i].Encrypt(textBefore);
+                Console.WriteLine($"stage {i + 1} {ciphers[i].GetType().Name} ciphertext ({textBefore.Length}):");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"{textBefore}\n");
+                Console.ResetColor();
+            }
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n[Main program finished.]");
+            Console.WriteLine("[decryption stage]\n");
+            Console.ResetColor();
+
+            for (var i = ciphers.Length - 1; i > -1; i--)
+            {
+                textBefore = ciphers[i].Decrypt(textBefore);
+                Console.WriteLine($"stage {i + 1}^-1 {ciphers[i].GetType().Name} plaintext ({textBefore.Length}):");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"{textBefore}\n");
+                Console.ResetColor();
+            }
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("[main program finished.]");
             Console.ResetColor();
         }
 
         private static void RunTest()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("[Running test...]\n");
+            Console.WriteLine("[running test...]\n");
             Console.ResetColor();
 
             const string keyString = "rCzlY0Fs92j7omaPmzG6";
@@ -148,17 +130,17 @@ Q > Quit
             var plaintext = string.Join(null, from i in Enumerable.Range(32, 95) select (char) i);
 
             Console.Write("plaintext: ");
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine(plaintext);
             Console.ResetColor();
 
             Console.Write("string key: ");
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine(keyString);
             Console.ResetColor();
 
             Console.Write("int key: ");
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine(keyInt.ToString());
             Console.ResetColor();
 
@@ -179,24 +161,24 @@ Q > Quit
 
                 Console.WriteLine();
 
-                Console.Write("encrypted: ");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(ciphertext);
+                Console.WriteLine($"encrypted ({ciphertext.Length}):");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"{ciphertext}\n");
                 Console.ResetColor();
 
-                Console.Write("decrypted: ");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(ctplaintext);
+                Console.WriteLine($"decrypted ({ctplaintext.Length}):");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"{ctplaintext}\n");
                 Console.ResetColor();
 
-                Console.Write("result: ");
+                Console.WriteLine("result:");
                 Console.ForegroundColor = plaintext.Equals(ctplaintext) ? ConsoleColor.Green : ConsoleColor.Red;
-                Console.WriteLine(plaintext.Equals(ctplaintext) ? "equals" : "not equal");
+                Console.WriteLine($"{(plaintext.Equals(ctplaintext) ? "equals" : "not equal")}\n");
                 Console.ResetColor();
             }
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n[Test finished.]");
+            Console.WriteLine("[test finished.]");
             Console.ResetColor();
         }
     }
