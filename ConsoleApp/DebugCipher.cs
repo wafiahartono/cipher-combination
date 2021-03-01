@@ -9,8 +9,6 @@ namespace ConsoleApp
     {
         public static void PrintStringDiff(string a, string b)
         {
-            // var aIndexes = StringInfo.ParseCombiningCharacters(a);
-            // var bIndexes = StringInfo.ParseCombiningCharacters(b);
             for (int ai = 0, bi = 0;
                 ai < a.Length && bi < b.Length;
                 ai += char.IsSurrogatePair(a, ai) ? 2 : 1, bi += char.IsSurrogatePair(b, bi) ? 2 : 1)
