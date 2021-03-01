@@ -133,7 +133,7 @@ q > quit",
                 if (_verbose)
                 {
                     Console.WriteLine();
-                    DebugCipher.PrintStringDiff(text, ciphertext);
+                    Utils.PrintStringDiff(text, ciphertext);
                 }
 
                 text = ciphertext;
@@ -150,7 +150,7 @@ q > quit",
                 if (_verbose)
                 {
                     Console.WriteLine();
-                    DebugCipher.PrintStringDiff(text, iPlaintext);
+                    Utils.PrintStringDiff(text, iPlaintext);
                 }
 
                 text = iPlaintext;
@@ -213,7 +213,7 @@ q > quit",
             var ciphertext = cipher.Encrypt(plaintext);
             if (_verbose)
             {
-                DebugCipher.PrintStringDiff(plaintext, ciphertext);
+                Utils.PrintStringDiff(plaintext, ciphertext);
                 Console.WriteLine();
             }
 
@@ -230,7 +230,7 @@ q > quit",
             var plaintext = cipher.Decrypt(ciphertext);
             if (_verbose)
             {
-                DebugCipher.PrintStringDiff(ciphertext, plaintext);
+                Utils.PrintStringDiff(ciphertext, plaintext);
                 Console.WriteLine();
             }
 
@@ -314,14 +314,14 @@ q > quit",
                 if (_verbose)
                 {
                     PrintWithColor("\nencrypting...\n", ConsoleColor.Yellow);
-                    DebugCipher.PrintStringDiff(plaintext, ciphertext);
+                    Utils.PrintStringDiff(plaintext, ciphertext);
                 }
 
                 var ctplaintext = cipher.Decrypt(ciphertext);
                 if (_verbose)
                 {
                     PrintWithColor("\ndecrypting...\n", ConsoleColor.Yellow);
-                    DebugCipher.PrintStringDiff(ciphertext, ctplaintext);
+                    Utils.PrintStringDiff(ciphertext, ctplaintext);
                 }
 
                 PrintKeyValuePair($"\n-/ encrypted ({ciphertext.Length})", '\n' + ciphertext, ConsoleColor.Cyan);

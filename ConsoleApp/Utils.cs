@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace ConsoleApp
 {
-    public static class DebugCipher
+    public static class Utils
     {
         public static void PrintStringDiff(string a, string b)
         {
