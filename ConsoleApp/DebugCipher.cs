@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace ConsoleApp
 {
@@ -6,14 +7,22 @@ namespace ConsoleApp
     {
         public static void PrintStringDiff(string a, string b)
         {
-            for (int ai = 0, bi = 0;
-                ai < a.Length && bi < b.Length;
-                ai += char.IsSurrogatePair(a, ai) ? 2 : 1, bi += char.IsSurrogatePair(b, bi) ? 2 : 1)
+            int aLen = StringInfo.ParseCombiningCharacters(a).Length,
+                bLen = StringInfo.ParseCombiningCharacters(b).Length;
+            if (aLen > bLen) b += new string('\0', aLen - bLen);
+            else if (bLen > aLen) a += new string('\0', bLen - aLen);
+            int[] aIndexes = StringInfo.ParseCombiningCharacters(a),
+                bIndexes = StringInfo.ParseCombiningCharacters(b);
+            for (var i = 0; i < aIndexes.Length; i++)
             {
-                var acInt = char.ConvertToUtf32(a, ai);
-                var bcInt = char.ConvertToUtf32(b, bi);
-                Console.WriteLine(
-                    $"[\u001b[36m{ai:D4}\u001b[39m] \u001b[35m{acInt:D8}\u001b[39m \u001b[32m0x{acInt:X6}\u001b[39m {char.ConvertFromUtf32(acInt)} \u001b[36m>\u001b[39m \u001b[35m{bcInt:D8}\u001b[39m \u001b[32m0x{bcInt:X6}\u001b[39m {char.ConvertFromUtf32(bcInt)}");
+                int aci = char.ConvertToUtf32(a, aIndexes[i]), bci = char.ConvertToUtf32(b, bIndexes[i]);
+                var s = string.Empty;
+                s += $"[\u001b[36m{i:D4}\u001b[39m] \u001b[35m{aci:D8}\u001b[39m \u001b[32m0x{aci:X6}\u001b[39m ";
+                s += aci == 0 ? ' ' : char.ConvertFromUtf32(aci);
+                s += $" \u001b[36m>\u001b[39m ";
+                s += $"[\u001b[36m{i:D4}\u001b[39m] \u001b[35m{bci:D8}\u001b[39m \u001b[32m0x{bci:X6}\u001b[39m ";
+                s += bci == 0 ? ' ' : char.ConvertFromUtf32(bci);
+                Console.WriteLine(s);
             }
         }
     }
