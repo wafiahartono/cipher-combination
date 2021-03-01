@@ -25,5 +25,9 @@ namespace ConsoleApp
                 Console.WriteLine(s);
             }
         }
+
+        public static string PrintNullCharacter(string s) => s.Replace("\0", "\\0");
+
+        public static string ReadNullCharacter(string s) => s.Replace("\\0", "\0");
     }
 }

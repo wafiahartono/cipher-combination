@@ -6,6 +6,7 @@ namespace ConsoleApp
 {
     internal class Program
     {
+        private bool _printReadNull = true;
         private bool _verbose;
 
         private static void Main()
@@ -44,7 +45,8 @@ available menu:
 m > run main program
 i > run individual test
 t > run test
-v > switch verbose flag
+n > print/read null character
+v > verbose
 q > quit",
                         ConsoleColor.Blue
                     );
@@ -62,10 +64,16 @@ q > quit",
                     case ConsoleKey.T:
                         RunTest();
                         break;
+                    case ConsoleKey.N:
+                        _printReadNull = !_printReadNull;
+                        printMenu = false;
+                        PrintWithColor($"print/read null character {_printReadNull.ToString().ToLower()}",
+                            ConsoleColor.Yellow);
+                        break;
                     case ConsoleKey.V:
                         _verbose = !_verbose;
                         printMenu = false;
-                        PrintWithColor($"verbose flag is now {(_verbose ? "on" : "off")}", ConsoleColor.Yellow);
+                        PrintWithColor($"verbose {_verbose.ToString().ToLower()}", ConsoleColor.Yellow);
                         break;
                     case ConsoleKey.Q:
                         PrintWithColor("quitting...", ConsoleColor.Yellow);
@@ -138,7 +146,8 @@ q > quit",
 
                 text = ciphertext;
                 PrintKeyValuePair(
-                    $"\n[stage {i + 1}] {ciphers[i].GetType().Name} ({text.Length})", '\n' + text,
+                    $"\n[stage {i + 1}] {ciphers[i].GetType().Name} ({text.Length})",
+                    '\n' + (_printReadNull ? Utils.PrintNullCharacter(text) : text),
                     ConsoleColor.Cyan
                 );
             }
@@ -155,7 +164,8 @@ q > quit",
 
                 text = iPlaintext;
                 PrintKeyValuePair(
-                    $"\n[stage {i + 1}^-1] {ciphers[i].GetType().Name} ({text.Length})", '\n' + text,
+                    $"\n[stage {i + 1}^-1] {ciphers[i].GetType().Name} ({text.Length})",
+                    '\n' + (_printReadNull ? Utils.PrintNullCharacter(text) : text),
                     ConsoleColor.Cyan
                 );
             }
@@ -175,7 +185,7 @@ q > quit",
                     PrintWithColor(@"
   individual test menu:
   e > encrypt a plaintext
-  d > decrypt a plaintext
+  d > decrypt a ciphertext
   q > quit",
                         ConsoleColor.Blue
                     );
@@ -217,13 +227,15 @@ q > quit",
                 Console.WriteLine();
             }
 
-            PrintKeyValuePair($"ciphertext ({ciphertext.Length})", '\n' + ciphertext, ConsoleColor.Cyan);
+            PrintKeyValuePair($"ciphertext ({ciphertext.Length})",
+                '\n' + (_printReadNull ? Utils.PrintNullCharacter(ciphertext) : ciphertext), ConsoleColor.Cyan);
         }
 
         private void RunDecryptionTest()
         {
             PrintWithColor("running decryption test...\n", ConsoleColor.Yellow);
             var ciphertext = ReadStringInput("ciphertext: ");
+            if (_printReadNull) ciphertext = Utils.ReadNullCharacter(ciphertext);
             var key = ReadStringInput("key: ");
             var cipher = GetCpiher(key);
             if (cipher == null) return;
@@ -234,7 +246,8 @@ q > quit",
                 Console.WriteLine();
             }
 
-            PrintKeyValuePair($"plaintext ({plaintext.Length})", '\n' + plaintext, ConsoleColor.Cyan);
+            PrintKeyValuePair($"plaintext ({plaintext.Length})",
+                '\n' + (_printReadNull ? Utils.PrintNullCharacter(plaintext) : plaintext), ConsoleColor.Cyan);
         }
 
         private static StringCipher GetCpiher(string key)
@@ -324,8 +337,10 @@ q > quit",
                     Utils.PrintStringDiff(ciphertext, ctplaintext);
                 }
 
-                PrintKeyValuePair($"\n-/ encrypted ({ciphertext.Length})", '\n' + ciphertext, ConsoleColor.Cyan);
-                PrintKeyValuePair($"\n-/ decrypted ({ctplaintext.Length})", '\n' + ctplaintext, ConsoleColor.Cyan);
+                PrintKeyValuePair($"\n-/ encrypted ({ciphertext.Length})",
+                    '\n' + (_printReadNull ? Utils.PrintNullCharacter(ciphertext) : ciphertext), ConsoleColor.Cyan);
+                PrintKeyValuePair($"\n-/ decrypted ({ctplaintext.Length})",
+                    '\n' + (_printReadNull ? Utils.PrintNullCharacter(ctplaintext) : ctplaintext), ConsoleColor.Cyan);
                 PrintKeyValuePair(
                     "\nresult", plaintext.Equals(ctplaintext) ? "equals" : "not equal",
                     plaintext.Equals(ctplaintext) ? ConsoleColor.Green : ConsoleColor.Red
