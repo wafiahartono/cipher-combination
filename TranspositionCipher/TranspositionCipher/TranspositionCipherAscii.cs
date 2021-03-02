@@ -18,29 +18,29 @@ namespace TranspositionCipher
 
         public override string Encrypt(string plaintext)
         {
-            var r = plaintext.Length / _encryptionKey.Length + (plaintext.Length % _encryptionKey.Length == 0 ? 0 : 1);
-            plaintext += new string((char) 0, r * _encryptionKey.Length - plaintext.Length);
-            var ctm = new char[r, _encryptionKey.Length];
-            for (int m = 0, i = 0; m < r; m++)
-            for (var n = 0; n < _encryptionKey.Length; n++, i++)
-                ctm[m, _encryptionKey[n] - 1] = plaintext[i];
+            var c = plaintext.Length / _encryptionKey.Length + (plaintext.Length % _encryptionKey.Length == 0 ? 0 : 1);
+            plaintext += new string((char) 0, c * _encryptionKey.Length - plaintext.Length);
+            var ctm = new char[_encryptionKey.Length, c];
+            for (int n = 0, i = 0; n < c; n++)
+            for (var m = 0; m < _encryptionKey.Length; m++, i++)
+                ctm[_encryptionKey[m] - 1, n] = plaintext[i];
             var ct = new char[plaintext.Length];
-            for (int n = 0, i = 0; n < _encryptionKey.Length; n++)
-            for (var m = 0; m < r; m++, i++)
+            for (int m = 0, i = 0; m < _encryptionKey.Length; m++)
+            for (var n = 0; n < c; n++, i++)
                 ct[i] = ctm[m, n];
             return new string(ct);
         }
 
         public override string Decrypt(string ciphertext)
         {
-            var r = ciphertext.Length / _decryptionKey.Length;
-            var ptm = new char[r, _decryptionKey.Length];
-            for (int n = 0, i = 0; n < _decryptionKey.Length; n++)
-            for (var m = 0; m < r; m++, i++)
-                ptm[m, _decryptionKey[n] - 1] = ciphertext[i];
+            var c = ciphertext.Length / _decryptionKey.Length;
+            var ptm = new char[_decryptionKey.Length, c];
+            for (int m = 0, i = 0; m < _decryptionKey.Length; m++)
+            for (var n = 0; n < c; n++, i++)
+                ptm[_decryptionKey[m] - 1, n] = ciphertext[i];
             var pt = new char[ciphertext.Length];
-            for (int m = 0, i = 0; m < r; m++)
-            for (var n = 0; n < _encryptionKey.Length; n++, i++)
+            for (int n = 0, i = 0; n < c; n++)
+            for (var m = 0; m < _encryptionKey.Length; m++, i++)
                 pt[i] = ptm[m, n];
             return new string(pt).Replace("\0", string.Empty);
         }
