@@ -1,6 +1,6 @@
-Program kombinasi cipher mata kuliah Information Security and Assurance (1604B045) Teknik Informatik Universitas Surabaya
+Program kombinasi cipher mata kuliah Information Security and Assurance (1604B045) Teknik Informatika Universitas Surabaya
 
-#### Anggota kelompok:
+#### Anggota kelompok
 
 - Christopher Angelo Lomban (160419058)
 - Herliansyah Bagus Priambodo (160419082)
@@ -9,12 +9,36 @@ Program kombinasi cipher mata kuliah Information Security and Assurance (1604B04
 - David Pratama (160419103)
 - Starif Pahlaurelf Girsang (160419149)
 
-#### Cipher yang digunakan:
+#### Cipher tersedia
 
-Vigenere, additive, transposition
+[Additive](AdditiveCipher/), [emoji](EmojiCipher/), [transposition](TranspositionCipher/), [vigenere](VigenereCipher/)
+
+> Catatan untuk cipher emoji: proyeksi emoji dimulai pada karakter Unicode `0x1F420` untuk karakter ASCII `0x20`. Batas bawah proyeksi dapat diatur pada variabel `_codePointStart`. Pastikan 95 karakter Unicode mulai dari batas bawah tersebut (inklusif) adalah karakter yang valid
+
+#### Fitur
+
+- Mendukung karakter ASCII `0x20` sampai `0x7E`
+
+> Untuk cipher transposition dan vigenere, class yang mendukung ASCII adalah yang memiliki nama dengan prefix Ascii
+
+- Menu interaktif yang berisi program utama (mengkombinasikan cipher) serta program untuk mengetes cipher
+
+- Input dan output karakter NULL (`0x00`). Fitur ini sangat berguna pada cipher transposition
+
+- Perbandingan plaintext dengan ciphertext karakter demi karakter
+
+#### Screenshots
+
+![Menu utama](src/screenshot-menu-utama.png)
+
+![Menu tes semua cipher](src/screenshot-menu-tes-semua-cipher.png)
+
+![Perbandingan karakter](src/screenshot-perbandingan-karakter.png)
+
+![Emoji cipher](src/screenshot-emoji-cipher.png)
 
 #### Credits
 
-- Vigenere cipher: [programmingalgorithms.com](https://www.programmingalgorithms.com/algorithm/vigenere-cipher)
+- [Vigenere cipher](VigenereCipher/VigenereCipher/VigenereCipher.cs): [programmingalgorithms.com](https://www.programmingalgorithms.com/algorithm/vigenere-cipher)
 
-- Transposition cipher [programmingalgorithms.com](https://www.programmingalgorithms.com/algorithm/transposition-cipher)
+- [Transposition cipher](TranspositionCipher/TranspositionCipher/TranspositionCipher.cs) [programmingalgorithms.com](https://www.programmingalgorithms.com/algorithm/transposition-cipher)
