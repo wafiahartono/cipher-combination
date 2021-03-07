@@ -19,9 +19,9 @@ Program kombinasi cipher mata kuliah Information Security and Assurance (1604B04
 
 - Mendukung karakter ASCII `0x20` sampai `0x7E`
 
-> Untuk cipher transposition dan vigenere, class yang mendukung ASCII adalah yang memiliki nama dengan prefix Ascii
+> Untuk cipher additive, transposition dan vigenere, class yang mendukung ASCII adalah yang memiliki nama dengan prefix Ascii
 
-- Menu interaktif yang berisi program utama (mengkombinasikan cipher) serta program untuk mengetes cipher
+- Menu interaktif
 
 - Input dan output karakter NULL (`0x00`). Fitur ini sangat berguna pada cipher transposition
 

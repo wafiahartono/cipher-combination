@@ -42,7 +42,6 @@ Anggota kelompok:
                 if (printMenu)
                     PrintWithColor(@"
 available menu:
-m > run main program
 i > run individual test
 t > run test
 n > print/read null character
@@ -55,9 +54,6 @@ q > quit",
                 Console.Write(" : ");
                 switch (choice.Key)
                 {
-                    case ConsoleKey.M:
-                        RunMainProgram();
-                        break;
                     case ConsoleKey.I:
                         RunIndividualTest();
                         break;
@@ -117,60 +113,6 @@ q > quit",
             var key = Console.ReadKey();
             Console.ResetColor();
             return key;
-        }
-
-        private void RunMainProgram()
-        {
-            PrintWithColor("running main program...\n", ConsoleColor.Yellow);
-            var plaintext = ReadStringInput("plaintext: ");
-            var key0 = ReadStringInput("string key: ");
-            var key1 = int.Parse(ReadStringInput("integer key: "));
-            var ciphers = new StringCipher[]
-            {
-                new VigenereCipher.VigenereCipherAscii(key0),
-                new AdditiveCipher.AdditiveCipher(key1),
-                new TranspositionCipher.TranspositionCipherAscii(key0),
-                new EmojiCipher.EmojiCipher()
-            };
-            var text = plaintext;
-
-            PrintWithColor("\nencryption stage", ConsoleColor.Yellow);
-            for (var i = 0; i < ciphers.Length; i++)
-            {
-                var ciphertext = ciphers[i].Encrypt(text);
-                if (_verbose)
-                {
-                    Console.WriteLine();
-                    Utils.PrintStringDiff(text, ciphertext);
-                }
-
-                text = ciphertext;
-                PrintKeyValuePair(
-                    $"\n[stage {i + 1}] {ciphers[i].GetType().Name} ({text.Length})",
-                    '\n' + (_printReadNull ? Utils.PrintNullCharacter(text) : text),
-                    ConsoleColor.Cyan
-                );
-            }
-
-            PrintWithColor("\ndecryption stage", ConsoleColor.Yellow);
-            for (var i = ciphers.Length - 1; i > -1; i--)
-            {
-                var iPlaintext = ciphers[i].Decrypt(text);
-                if (_verbose)
-                {
-                    Console.WriteLine();
-                    Utils.PrintStringDiff(text, iPlaintext);
-                }
-
-                text = iPlaintext;
-                PrintKeyValuePair(
-                    $"\n[stage {i + 1}^-1] {ciphers[i].GetType().Name} ({text.Length})",
-                    '\n' + (_printReadNull ? Utils.PrintNullCharacter(text) : text),
-                    ConsoleColor.Cyan
-                );
-            }
-
-            PrintWithColor("\n> main program finished", ConsoleColor.Red);
         }
 
         private void RunIndividualTest()
@@ -260,11 +202,12 @@ q > quit",
                     PrintWithColor(@"
     choose a cipher:
     1 > additive cipher
-    2 > emoji cipher
-    3 > transposition cipher
-    4 > transposition ascii cipher
-    5 > vigenere cipher
-    6 > vigenere ascii cipher
+    2 > additive ascii cipher
+    3 > emoji cipher
+    4 > transposition cipher
+    5 > transposition ascii cipher
+    6 > vigenere cipher
+    7 > vigenere ascii cipher
     c > cancel",
                         ConsoleColor.Blue
                     );
@@ -277,18 +220,21 @@ q > quit",
                         PrintWithColor("additive cipher\n", ConsoleColor.Yellow);
                         return new AdditiveCipher.AdditiveCipher(int.Parse(key));
                     case ConsoleKey.D2:
+                        PrintWithColor("additive ascii cipher\n", ConsoleColor.Yellow);
+                        return new AdditiveCipher.AdditiveCipherAscii(int.Parse(key));
+                    case ConsoleKey.D3:
                         PrintWithColor("emoji cipher\n", ConsoleColor.Yellow);
                         return new EmojiCipher.EmojiCipher();
-                    case ConsoleKey.D3:
+                    case ConsoleKey.D4:
                         PrintWithColor("transposition cipher\n", ConsoleColor.Yellow);
                         return new TranspositionCipher.TranspositionCipher(key, '_');
-                    case ConsoleKey.D4:
+                    case ConsoleKey.D5:
                         PrintWithColor("transposition ascii cipher\n", ConsoleColor.Yellow);
                         return new TranspositionCipher.TranspositionCipherAscii(key);
-                    case ConsoleKey.D5:
+                    case ConsoleKey.D6:
                         PrintWithColor("vigenere cipher\n", ConsoleColor.Yellow);
                         return new VigenereCipher.VigenereCipher(key);
-                    case ConsoleKey.D6:
+                    case ConsoleKey.D7:
                         PrintWithColor("vigenere ascii cipher\n", ConsoleColor.Yellow);
                         return new VigenereCipher.VigenereCipherAscii(key);
                     case ConsoleKey.C:
@@ -312,7 +258,7 @@ q > quit",
             const int intKey = 85965636;
             var ciphers = new StringCipher[]
             {
-                new AdditiveCipher.AdditiveCipher(intKey),
+                new AdditiveCipher.AdditiveCipherAscii(intKey),
                 new VigenereCipher.VigenereCipherAscii(stringKey),
                 new TranspositionCipher.TranspositionCipherAscii(stringKey),
                 new EmojiCipher.EmojiCipher()
