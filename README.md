@@ -1,3 +1,5 @@
+> Dengan selesainya tugas mata kuliah terkait dan dinilai tidak ada pengembangan lebih lanjut lagi maka repository ini diarsipkan.
+
 Program kombinasi cipher mata kuliah Information Security and Assurance (1604B045) Teknik Informatika Universitas Surabaya
 
 #### Anggota kelompok
